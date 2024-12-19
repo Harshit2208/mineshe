@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            padding: 50px 20px;
+            font-size: 3em;
+            font-weight: bold;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .countdown {
+            margin: 20px 0;
+            font-size: 1.5em;
+        }
+        .message {
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+        }
+        .quiz {
+            margin: 20px;
+        }
+        .quiz button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6b81;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .quiz button:hover {
+            background-color: #ff3b61;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #333;
+        }
+        #card-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            position: relative;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 1s ease-in-out;
+            transform-style: preserve-3d;
+            position: absolute;
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .card-front {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .card-back {
+            background: linear-gradient(135deg, #fad0c4, #ff9a9e);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+        }
+        .card-back p {
+            margin: 10px;
+        }
+        .card-back img {
+            width: 80px;
+            height: 80px;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        iframe, video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            color: red;
+            animation: float 3s infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-50px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+        .handwritten {
+            font-family: 'Cursive', sans-serif;
+            animation: handwriting 5s steps(30) infinite;
+        }
+        @keyframes handwriting {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="confetti"></canvas>
+    <header>Happy Birthday, Mine-She!</header>
+
+    <div class="content">
+        <audio controls autoplay loop>
+            <source src="birthday.mp3" type="audio/mp3">
+            Your browser does not support the audio element. <a href="birthday.mp3">Click here to listen to the song.</a>
+        </audio>
+
+        <iframe 
+            src="https://www.youtube.com/embed/5u4xTa3LR2U?autoplay=1&mute=0" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+
+        <img src="hbirthday.jpg" alt="Happy Birthday Image">
+
+        <div class="countdown">
+            Countdown: <span id="countdown-timer"></span>
+        </div>
+
+        <div class="message">
+            Dear Mine-She,<br><br>
+            Thank you for being by my side whenever I needed you, understanding me even by my facial expressions, forgiving my mistakes, and suggesting so much wonderful food! <br><br>
+            Special thanks to Aunty for introducing such a lovely person to this world. 💖<br><br>
+            Here's a video wish from Rohit Saraf! <br><br>
+
+            <video controls>
+                <source src="rohit.mp4" type="video/mp4">
+                Your browser does not support the video element. <a href="rohit.mp4">Click here to watch the video.</a>
+            </video>
+        </div>
+
+        <div class="quiz">
+            <p>How well do you know Mansi?</p>
+            <form id="quiz-form">
+                <label>1. What's Mansi's favorite color?</label><br>
+                <input type="radio" name="question1" value="Yellow"> Yellow<br>
+                <input type="radio" name="question1" value="Blue"> Blue<br>
+                <input type="radio" name="question1" value="Green"> Green<br><br>
+
+                <label>2. What's Mansi's favorite food?</label><br>
+                <input type="radio" name="question2" value="Home-made Pasta"> Home-made Pasta<br>
+                <input type="radio" name="question2" value="Pizza"> Pizza<br>
+                <input type="radio" name="question2" value="Pasta"> Pasta<br><br>
+
+                <button type="button" onclick="submitQuiz()">Submit</button>
+            </form>
+        </div>
+
+        <div class="quiz">
+            <button onclick="revealGift()">Reveal Message</button>
+        </div>
+    </div>
+
+    <div id="card-container">
+        <div class="card">
+            <div class="card-inner" id="birthdayCard">
+                <div class="card-front">
+                    Happy Birthday Mansi!
+                </div>
+                <div class="card-back">
+                    <p>Wishing you a wonderful day filled with joy and happiness!</p>
+                    <p>Love, Harshit ❤️</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/1087/1087840.png" alt="Gift Icon">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="handwritten">Made with ❤️ by Harshit</p>
+    </footer>
+
+    <script>
+        function revealGift() {
+            document.querySelector('.quiz').style.display = 'none';
+            document.getElementById('card-container').style.display = 'flex';
+            const audio = new Audio('chime.mp3');
+            audio.play();
+            setTimeout(() => {
+                document.getElementById('birthdayCard').style.transform = 'rotateY(180deg)';
+            }, 500);
+        }
+
+        function submitQuiz() {
+            const quizForm = document.getElementById('quiz-form');
+            const answers = {
+                question1: 'Yellow',
+                question2: 'Home-made Pasta'
+            };
+            let score = 0;
+            if (quizForm.question1.value === answers.question1) score++;
+            if (quizForm.question2.value === answers.question2) score++;
+
+            if (score === 2) {
+                alert('You got all answers right! Click "Reveal Message"!');
+                document.querySelector('.quiz button').style.display = 'block';
+            } else {
+                alert('Oops! Try again!');
+            }
+        }
+
+        function initConfetti() {
+            const confettiCanvas = document.querySelector('.confetti');
+            const context = confettiCanvas.getContext('2d');
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+
+            const particles = Array.from({ length: 300 }, () => ({
+                x: Math.random() * confettiCanvas.width,
+                y: Math.random() * confettiCanvas.height,
+                r: Math.random() * 5 + 1,
+                dx: Math.random() * 2 - 1,
+                dy: Math.random() * 2 + 1,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+            }));
+
+            function drawParticles() {
+                context.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                particles.forEach((particle) => {
+                    context.beginPath();
+                    context.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2, false);
+                    context.fillStyle = particle.color;
+                    context.fill();
+                });
+            }
+
+            function updateParticles() {
+                particles.forEach((particle) => {
+                    particle.x += particle.dx;
+                    particle.y += particle.dy;
+                    if (particle.x > confettiCanvas.width || particle.x < 0) particle.dx *= -1;
+                    if (particle.y > confettiCanvas.height) particle.y = 0;
+                });
+            }
+
+            function animate() {
+                drawParticles();
+                updateParticles();
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // Countdown Timer
+        function startCountdown() {
+            const targetDate = new Date("2024-12-22T00:00:00").getTime();
+            const countdownElement = document.getElementById('countdown-timer');
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                if (distance < 0) {
+                    clearInterval();
+                    countdownElement.innerHTML = "Happy Birthday!";
+                }
+            }, 1000);
+        }
+
+        startCountdown();
+        initConfetti();
+    </script>
+</body>
+</html>
